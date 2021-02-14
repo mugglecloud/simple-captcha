@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>人机识别验证码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet"  href="{{ url_for('static', filename='style.css') }}"></link>
+  </head>
+  <body>
+    <div id="root">
+      <form>
+        <img src="data:image/png;base64,{{ captcha }}"/>
+        <input name="captcha" placeholder="请输入验证码"/>
+        <button type="submit">我不是机器</button>
+      </form>
+    <div>
+  </body>
+</html>
