@@ -17,4 +17,6 @@ COPY . .
 ENV PATH=/root/.local:$PATH
 ENV PYTHONPATH /root/.local:${PYTHONPATH}
 
+EXPOSE 5000
+
 CMD [ "python", "./server.py" ]
