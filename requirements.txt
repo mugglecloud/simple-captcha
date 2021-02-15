@@ -1,4 +1,4 @@
 captcha==0.3
 flask==1.1.2
-gevent==1.4.0
+gevent==21.1.2
 Pillow==8.1.0
