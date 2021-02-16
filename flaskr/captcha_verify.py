@@ -1,8 +1,8 @@
 from captcha.image import ImageCaptcha
 from flask import render_template
-from io import BytesIO
 import base64
 import random
+import time
 
 captch_cache = dict()
 
@@ -16,16 +16,14 @@ def generate(n):
     return image.generate(n)
 
 
-def verify(href, code):
-    print(href)
+def verify(client_ip, code):
+    client_ip = str(client_ip)
+    now = time.time()
     if code:
-        cached = captch_cache.get(href, None)
-        if cached and not cached['accessed']:
-            cached['accessed'] = True
-            captch_cache[href] = cached
-            if cached['code'] == code:
-                return ''
+        cached = captch_cache.get(client_ip, None)
+        if cached and cached['code'] == code and cached['expired_at'] > now:
+            return ''
     code = str(random.random())[2:8]
     captcha = image_to_base64(generate(code))
-    captch_cache[href] = {'code': code, 'accessed': False}
-    return render_template("captcha.jinja", captcha=str(captcha, 'utf-8'))
+    captch_cache[client_ip] = {'code': code, 'expired_at': now + 300}
+    return render_template("captcha.jinja", captcha=str(captcha, 'utf-8'), client_ip=client_ip or '')

@@ -11,6 +11,7 @@
       <form>
         <img src="data:image/png;base64,{{ captcha }}"/>
         <input name="captcha" placeholder="请输入验证码"/>
+        <input name="client_ip" hidden value="{{client_ip}}"/>
         <button type="submit">我不是机器</button>
       </form>
     <div>
